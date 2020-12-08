@@ -1,28 +1,45 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import {composeWithDevTools} from 'redux-devtools-extension' 
-import { productListReducer, productDetailsReducer } from './reducers/productReducers.js'
-import { cartReducer } from './reducers/cartReducers.js'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import {
+	productListReducer,
+	productDetailsReducer,
+} from "./reducers/productReducers.js";
+import { cartReducer } from "./reducers/cartReducers.js";
+import { userLoginReducer } from "./reducers/userReducers.js";
 
 const reducer = combineReducers({
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
-    cart: cartReducer
-})
+	productList: productListReducer,
+	productDetails: productDetailsReducer,
+	cart: cartReducer,
+	userLogin: userLoginReducer,
+});
 
-const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
+// get cart item data from localstorage and parse it else `cartItemsFromStorage = []`
+const cartItemsFromStorage = localStorage.getItem("cartItems")
+	? JSON.parse(localStorage.getItem("cartItems"))
+	: [];
+
+// get user data from localstorage and parse it else `userInfoFromStorage = null`
+const userInfoFromStorage = localStorage.getItem("userInfo")
+	? JSON.parse(localStorage.getItem("userInfo"))
+	: null;
 
 const initialState = {
-    cart: {
-        cartItems: cartItemsFromStorage
-    }
-}
+	cart: {
+		cartItems: cartItemsFromStorage,
+	},
+	userLogin: {
+		userInfo: userInfoFromStorage,
+	},
+};
 
-const middleware = [thunk]
+const middleware = [thunk];
 
 const store = createStore(
-    reducer,
-     initialState,
-      composeWithDevTools(applyMiddleware(...middleware)))
+	reducer,
+	initialState,
+	composeWithDevTools(applyMiddleware(...middleware))
+);
 
-export default store
+export default store;
