@@ -6,13 +6,14 @@ import {
 	productDetailsReducer,
 } from "./reducers/productReducers.js";
 import { cartReducer } from "./reducers/cartReducers.js";
-import { userLoginReducer } from "./reducers/userReducers.js";
+import { userLoginReducer, userRegisterReducer} from "./reducers/userReducers.js";
 
 const reducer = combineReducers({
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
 	cart: cartReducer,
 	userLogin: userLoginReducer,
+	userRegister: userRegisterReducer
 });
 
 // get cart item data from localstorage and parse it else `cartItemsFromStorage = []`
