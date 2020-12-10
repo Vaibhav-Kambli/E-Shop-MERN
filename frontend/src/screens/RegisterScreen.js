@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
-import { register } from "../actions/userActions";
 import { Link } from "react-router-dom";
+import { register } from "../actions/userActions";
 
 const RegisterScreen = ({ location, history }) => {
 	const [name, setName] = useState("");
