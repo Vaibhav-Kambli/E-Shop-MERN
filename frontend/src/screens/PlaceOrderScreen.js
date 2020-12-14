@@ -79,7 +79,7 @@ const PlaceOrderScreen = ({history}) => {
                                     {cart.cartItems.map((cartItem, index) => (
                                         <ListGroup.Item key={index}>
                                             <Row>
-                                                <Col md={1}>
+                                                <Col md={2}>
                                                     <Image src={cartItem.img} alt={cartItem.name} fluid rounded></Image>
                                                 </Col>
                                                 <Col>
@@ -137,7 +137,7 @@ const PlaceOrderScreen = ({history}) => {
                                 <Row>
                                     <Col>Total</Col>
                                     <Col>
-                                        ${cart.totalPrice}
+                                        ${Number(cart.totalPrice).toFixed(2)}
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
