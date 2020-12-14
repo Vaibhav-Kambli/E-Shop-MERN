@@ -12,7 +12,7 @@ import {
 	userDetailsReducer,
 	userUpdateProfileReducer,
 } from "./reducers/userReducers.js";
-import { orderCreateReducer, orderDetailsReducer } from "./reducers/orderReducers.js"
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from "./reducers/orderReducers.js"
 
 const reducer = combineReducers({
 	productList: productListReducer,
@@ -23,7 +23,8 @@ const reducer = combineReducers({
 	userDetails: userDetailsReducer,
 	userUpdateProfile: userUpdateProfileReducer,
 	orderCreate: orderCreateReducer,
-	orderDetails: orderDetailsReducer
+	orderDetails: orderDetailsReducer,
+	orderPay: orderPayReducer,
 });
 
 // get cart item data from localstorage and parse it else `cartItemsFromStorage = []`
