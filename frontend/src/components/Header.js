@@ -33,7 +33,7 @@ const Header = () => {
 						<Nav className="ml-auto">
 							<LinkContainer to="/cart">
 								<Nav.Link>
-									<i className="fas fa-shopping-cart"></i> Cart
+									<i className="fas fa-shopping-cart" style={{padding: '2px'}}></i> Cart
 								</Nav.Link>
 							</LinkContainer>
 
