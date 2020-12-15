@@ -44,7 +44,7 @@ const OrdersScreen = ({ match }) => {
       
       const script = document.createElement('script')
       script.type = 'text/javascript'
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=INR`
       script.async = true
       script.onload = () => {
         setSdkReady(true)
@@ -191,7 +191,7 @@ const OrdersScreen = ({ match }) => {
                 <ListGroup.Item>
                   {loadingPay && <Loader/>}
                   {!sdkReady ? <Loader/> : (
-                    <PayPalButton amount={order.totalPrice}
+                    <PayPalButton currency='INR' amount={parseInt(order.totalPrice)}
                     onSuccess={successPaymentHandler}></PayPalButton>
                   )}
                 </ListGroup.Item>
