@@ -156,7 +156,7 @@ const ProfileScreen = ({ location, history }) => {
 										<th />
 									</tr>
 								</thead>
-								<tbody>
+								{ orders.length !=='undefined' && orders.length > 0 ? (<tbody>
 									{orders.map((order) =>(
 										<tr key={order._id}>
 											<td>
@@ -185,7 +185,8 @@ const ProfileScreen = ({ location, history }) => {
 									)
 										
 									)}
-								</tbody>
+								</tbody>) : ( <tr > <th colspan='5'><Message variant="info"> No Previous Orders Found </Message> </th></tr> )  }
+								
 							</Table>)}
 			</Col>
 		</Row>
