@@ -3,8 +3,9 @@ import { useDispatch, useSelector} from "react-redux"
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import {logout } from '../actions/userActions'
+import { withRouter } from 'react-router-dom'
 
-const Header = () => {
+const Header = ({ history }) => {
 
 	const dispatch = useDispatch()
 
@@ -15,6 +16,7 @@ const Header = () => {
 	const logoutHandler = () => {
 		
 		dispatch(logout())
+		history.replace('/login')
 		//localStorage.removeItem('userInfo')
 	}
 
@@ -74,4 +76,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default withRouter(Header);
