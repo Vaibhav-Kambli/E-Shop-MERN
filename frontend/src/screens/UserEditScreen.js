@@ -5,7 +5,8 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { Link } from "react-router-dom";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUser } from "../actions/userActions";
+import { USER_UPDATE_RESET } from '../constants/userConstants'
 
 const UserEditScreen = ({ match, history }) => {
     const userId = match.params.id
@@ -18,32 +19,50 @@ const UserEditScreen = ({ match, history }) => {
 
 	const userDetails = useSelector(state => state.userDetails);
 	const { loading, error, user } = userDetails;
+	
+	const userUpdate = useSelector(state => state.userUpdate);
+	const { loading: loadingUpdate, error: errorUpdate, success: successUpdate} = userUpdate;
 
 	useEffect(
 		() => {
-            if(!user || user._id !== userId){
-                dispatch(getUserDetails(userId))
-            } else {
-                setName(user.name);
-				setEmail(user.email);
-				setIsAdmin(user.isAdmin)
-            }
-			
+
+			if(successUpdate){
+				dispatch({ 
+					type: USER_UPDATE_RESET
+				})
+				history.push('/admin/userlist')
+			}else{
+				if(!user || user._id !== userId){
+					dispatch(getUserDetails(userId))
+				} else {
+					setName(user.name);
+					setEmail(user.email);
+					setIsAdmin(user.isAdmin)
+				}	
+			}
+           
 		},
-		[dispatch, user, userId]
+		[dispatch, history, user, userId, successUpdate]
 	);
 
 	// Handle button submit
 	const submitHandler = e => {
-        e.preventDefault();
+		e.preventDefault();
+		dispatch(updateUser({
+			_id: userId,
+			name,
+			email,
+			isAdmin
+		}))
 	};
 
 	return (
         <>
             <Link to='/admin/userlist' className='btn btn-light my-3'>Go Back</Link>
-
             <FormContainer>
 			<h1>Edit User</h1>
+			{loadingUpdate && <Loader />}
+			{errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
 			{loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <Form onSubmit={submitHandler}>
