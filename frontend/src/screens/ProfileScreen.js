@@ -130,16 +130,16 @@ const ProfileScreen = ({ location, history }) => {
 					</Button>
 				</Form>
 			</Col>
-			
+
 			<Col md={9}>
 				<h2>My Orders</h2>
-				{loadingOrders 
-					?( <Loader />)
+				{loadingOrders
+					? <Loader />
 					: errorOrders
-						? (<Message variant="danger">
+						? <Message variant="danger">
 								{errorOrders}
-							</Message>)
-						: (<Table
+							</Message>
+						: <Table
 								striped
 								bordered
 								hover
@@ -153,41 +153,56 @@ const ProfileScreen = ({ location, history }) => {
 										<th>TOTAL</th>
 										<th>PAID</th>
 										<th>DELIVERED</th>
-										<th />
+										{/*<th />*/}
 									</tr>
 								</thead>
-								{ orders.length !=='undefined' && orders.length > 0 ? (<tbody>
-									{orders.map((order) =>(
-										<tr key={order._id}>
-											<td>
-												{order._id}
-											</td>
-											<td>
-												{order.createdAt.substring(0, 10)}
-											</td>
-											<td>
-												{order.totalPrice}
-											</td>
-											<td>
-												{order.isPaid ? ( order.paidAt.substring(0, 10))
-													: (<i className="fa fa-times" style={{ color: "red" }}/>)}
-											</td>
-											<td>
-												{order.isDelivered ? (order.deliveredAt.substring(0, 10))
-													: (<i className="fa fa-times" style={{ color: "red" }}/>)}
-											</td>
-											<td>
-												<LinkContainer to={`/order/${order._id}`}>
-													<Button variant="light">Details</Button>
-												</LinkContainer>
-											</td>
-										</tr>
-									)
-										
-									)}
-								</tbody>) : ( <tr > <th colspan='5'><Message variant="info"> No Previous Orders Found </Message> </th></tr> )  }
-								
-							</Table>)}
+								{orders.length !== "undefined" && orders.length > 0
+									? <tbody>
+											{orders.map(order =>
+												<tr key={order._id}>
+													<td>
+														{order._id}
+													</td>
+													<td>
+														{order.createdAt.substring(0, 10)}
+													</td>
+													<td>
+														{order.totalPrice}
+													</td>
+													<td>
+														{order.isPaid
+															? order.paidAt.substring(0, 10)
+															: <i
+																	className="fa fa-times"
+																	style={{ color: "red" }}
+																/>}
+													</td>
+													<td>
+														{order.isDelivered
+															? order.deliveredAt.substring(0, 10)
+															: <i
+																	className="fa fa-times"
+																	style={{ color: "red" }}
+																/>}
+													</td>
+													<td>
+														<LinkContainer to={`/order/${order._id}`}>
+															<Button variant="dark">Details</Button>
+														</LinkContainer>
+													</td>
+												</tr>
+											)}
+										</tbody>
+									: <tbody>
+											<tr>
+												<td colSpan="5">
+													<Message variant="info">
+														No Previous Orders Found
+													</Message>
+												</td>
+											</tr>
+										</tbody>}
+							</Table>}
 			</Col>
 		</Row>
 	);
