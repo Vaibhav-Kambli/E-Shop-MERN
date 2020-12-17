@@ -25,7 +25,8 @@ const UserEditScreen = ({ match, history }) => {
                 dispatch(getUserDetails(userId))
             } else {
                 setName(user.name);
-                setEmail(user.email);
+				setEmail(user.email);
+				setIsAdmin(user.isAdmin)
             }
 			
 		},
