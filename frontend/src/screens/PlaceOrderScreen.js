@@ -104,7 +104,7 @@ const PlaceOrderScreen = ({history}) => {
                 </Col>
 
                 <Col md={4}>
-                    <Card>
+                    <Card className='order__summary'>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
                                 <h2>Order Summary</h2>
@@ -141,10 +141,10 @@ const PlaceOrderScreen = ({history}) => {
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
-
-                            <ListGroup.Item>
+                             {error && (<ListGroup.Item>
                                 {error && <Message variant="danger">{error}</Message>}
-                            </ListGroup.Item>
+                            </ListGroup.Item>)}                               
+                            
                             <ListGroup.Item>
                                 <Button type='button'
                                         className='btn-block' 
