@@ -29,7 +29,7 @@ const Footer = () => {
 							className="fab fa-github fa-2x"
 							style={{ color: "black" }}
 						/>
-						<span>GitHub</span>
+						<span className="ml-2">GitHub</span>
 					</a>
 				</Col>
 				<Col className="text-left py-2 ">
