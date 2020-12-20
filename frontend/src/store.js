@@ -23,6 +23,7 @@ import {
 	orderDetailsReducer,
 	orderPayReducer,
 	orderListMyReducer,
+	orderListReducer
 } from "./reducers/orderReducers.js";
 
 const reducer = combineReducers({
@@ -43,6 +44,7 @@ const reducer = combineReducers({
 	orderDetails: orderDetailsReducer,
 	orderPay: orderPayReducer,
 	orderListMy: orderListMyReducer,
+	orderList: orderListReducer
 });
 
 // get cart item data from localstorage and parse it else `cartItemsFromStorage = []`
