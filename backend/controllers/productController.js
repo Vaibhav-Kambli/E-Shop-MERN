@@ -7,7 +7,16 @@ import AsyncHandler from "express-async-handler";
  * @access      Public
  */
 const getProducts = AsyncHandler(async (req, res) => {
-	const products = await Product.find({});
+	const keyword = req.query.keyword
+		? {
+				name: {
+					$regex: req.query.keyword,
+					$options: "i",
+				},
+			}
+		: {};
+
+	const products = await Product.find({ ...keyword });
 	res.json(products);
 });
 
@@ -114,30 +123,34 @@ const createProductReview = AsyncHandler(async (req, res) => {
 	const product = await Product.findById(req.params.id);
 
 	if (product) {
-		const alreadyReviewed = product.reviews.find(review => review.user.toString() === req.user._id.toString())
+		const alreadyReviewed = product.reviews.find(
+			review => review.user.toString() === req.user._id.toString()
+		);
 
-		if(alreadyReviewed){
-			res.status(400)
-			throw new Error('Product already reviewed')
+		if (alreadyReviewed) {
+			res.status(400);
+			throw new Error("Product already reviewed");
 		}
 
 		const review = {
 			name: req.user.name,
 			rating: Number(rating),
 			comment,
-			user: req.user._id
-		}
+			user: req.user._id,
+		};
 
-		product.reviews.push(review)
+		product.reviews.push(review);
 
-		product.numReviews = product.reviews.length
+		product.numReviews = product.reviews.length;
 
-		product.rating = product.reviews.reduce((total, review) => total + review.rating, 0)/ product.reviews.length
+		product.rating =
+			product.reviews.reduce((total, review) => total + review.rating, 0) /
+			product.reviews.length;
 
-		await product.save()
+		await product.save();
 		res.status(201).json({
-			message: 'Review successfully added'
-		})
+			message: "Review successfully added",
+		});
 	} else {
 		res.status(404);
 		throw new Error("Product not found");
@@ -153,5 +166,5 @@ export {
 	deleteProduct,
 	createProduct,
 	updateProduct,
-	createProductReview
+	createProductReview,
 };
