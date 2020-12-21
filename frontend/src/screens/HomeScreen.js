@@ -4,22 +4,25 @@ import { Col, Row } from "react-bootstrap";
 import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Paginate from "../components/Paginate";
 import {listProducts} from '../actions/productActions.js'
 
 
 const HomeScreen = ({ match }) => {
 	const keyword = match.params.keyword
 
+	const pageNumber = match.params.pageNumber || 1
+
 	const dispatch = useDispatch()
 
 	const productList = useSelector(state => state.productList)
-	const { loading, error, products } = productList
+	const { loading, error, products, page, pages } = productList
 	
 
 	useEffect(() => {
-		dispatch(listProducts(keyword))
+		dispatch(listProducts(keyword, pageNumber))
 
-	}, [dispatch, keyword]);
+	}, [dispatch, keyword, pageNumber]);
 
 	return (
 		<>
@@ -32,7 +35,10 @@ const HomeScreen = ({ match }) => {
 						<Product product={product} />
 					</Col>
 				))}
-			</Row> </>)}
+			</Row>
+			<Paginate pages={pages} page={page} keyword={keyword ? keyword : ''}/>
+
+			 </>)}
 
 			
 		</>
