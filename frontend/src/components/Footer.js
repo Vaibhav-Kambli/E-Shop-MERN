@@ -6,7 +6,7 @@ const Footer = () => {
 		<Container>
 			<hr />
 			<Row>
-				<Col className="text-right py-2 ">
+				<Col className="text-right pb-2 ">
 					<a
 						href="https://www.linkedin.com/in/vaibhav-kambli"
 						rel="noopener noreferrer"
@@ -19,7 +19,7 @@ const Footer = () => {
 						<span className="p-2 mb-4">LinkedIn</span>
 					</a>
 				</Col>
-				<Col className="text-center py-2 ">
+				<Col className="text-center pb-2 ">
 					<a
 						href="https://github.com/Vaibhav-Kambli"
 						rel="noopener noreferrer"
@@ -32,7 +32,7 @@ const Footer = () => {
 						<span className="ml-2">GitHub</span>
 					</a>
 				</Col>
-				<Col className="text-left py-2 ">
+				<Col className="text-left pb-2  ">
 					<a href={`mailto:vaibhavk2608@gmail.com`}>
 						<i
 							className="fas fa-envelope fa-2x"

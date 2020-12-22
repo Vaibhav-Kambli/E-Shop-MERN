@@ -1,33 +1,100 @@
 main {
-	min-height: 80vh;
+  min-height: 80vh;
 }
 
 h3 {
-	padding: 1rem 0;
+  font-family: Raleway;
+  padding: 1rem 0;
 }
 
 h1 {
-	font-size: 1.8rem;
-	padding: 0.1rem;
+  font-family: Raleway;
+  font-size: 1.8rem;
+  padding: 0.1rem;
 }
 
 h2 {
-	font-size: 1.4rem;
-	padding: 0.5rem 0;
+  font-family: Raleway;
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
 }
 
 .rating span {
-	margin: 0.1px;
+  margin: 0.1px;
 }
 
+/* carousel */
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  background-size: 40%, 40%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after {
+  content: ">";
+  font-size: 55px;
+  color: black;
+}
+
+.carousel-control-prev-icon:after {
+  content: "<";
+  font-size: 55px;
+  color: black;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 0;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.carousel-caption h2 {
+  font-family: Raleway;
+  color: rgb(0, 0, 0);
+}
+
+.carousel img {
+  height: 350px;
+  padding: 30px;
+  margin: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: scale-down;
+}
+.carousel a {
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .carousel-caption h2 {
+    font-size: 2.5vw;
+  }
+}
+
+.carousel {
+  text-align: center;
+  opacity: 0.8;
+}
+
+.carousel-indicators li {
+  background-color: black;
+}
 
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
- 
-	.product-section {
-	  min-width: fit-content;
-	}
-   
-	.product-section:nth-child(3) {
-	  margin: 20px 0 0 50%;
-	}
+  .product-section {
+    min-width: fit-content;
   }
+
+  .product-section:nth-child(3) {
+    margin: 20px 0 0 50%;
+  }
+}
