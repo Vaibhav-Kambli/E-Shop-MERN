@@ -155,6 +155,11 @@ export const updateProduct = (product) => async(dispatch, getState) => {
 			type: PRODUCT_UPDATE_SUCCESS,
 			payload: data
 		});
+
+		dispatch({ 
+			type: PRODUCT_DETAILS_SUCCESS,
+			payload: data 
+		})
 	}
 	catch (err) {
 		const message = err.response && err.response.data.message ? err.response.data.message : err.message

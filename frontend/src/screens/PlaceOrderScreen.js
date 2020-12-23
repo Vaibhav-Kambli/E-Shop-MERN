@@ -5,11 +5,18 @@ import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { Link } from "react-router-dom";
 import { createOrder } from '../actions/orderActions'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
 
 const PlaceOrderScreen = ({history}) => {
     const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
+
+    if (!cart.shippingAddress.address) {
+        history.push('/shipping')
+      } else if (!cart.paymentMethod) {
+        history.push('/payment')
+      }
 
     // Calculate prices
     cart.itemsPrice = Number(cart.cartItems.reduce((total, item) => total + item.price * item.quantity, 0)).toFixed(2)
@@ -26,8 +33,7 @@ const PlaceOrderScreen = ({history}) => {
     useEffect(() => {
         if(success){
             history.push(`/order/${order._id}`)
-            console.log('Order Placed');
-            
+            dispatch({ type: USER_DETAILS_RESET })
         }
          // eslint-disable-next-line
     }, [history, success])
