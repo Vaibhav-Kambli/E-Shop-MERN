@@ -38,7 +38,7 @@ const ProfileScreen = ({ location, history }) => {
 			if (!userInfo) {
 				history.push("/login");
 			} else {
-				if (!user.name) {
+				if (!user || !user.name) {
 					dispatch({ type: USER_UPDATE_PROFILE_RESET });
 					dispatch(getUserDetails("profile"));
 					dispatch(listMyOrders());
@@ -87,8 +87,9 @@ const ProfileScreen = ({ location, history }) => {
 					<Message variant="success">
 						Profile Updated Successfully!
 					</Message>}
-				{loading && <Loader />}
-				<Form onSubmit={submitHandler}>
+
+				{loading ? (<Loader />) : error ? <Message variant="danger">{error}</Message> : (
+					<Form onSubmit={submitHandler}>
 					<Form.Group controlId="name">
 						<Form.Label>Name</Form.Label>
 						<Form.Control
@@ -129,6 +130,8 @@ const ProfileScreen = ({ location, history }) => {
 						Update
 					</Button>
 				</Form>
+				) }
+				
 			</Col>
 
 			<Col md={9}>

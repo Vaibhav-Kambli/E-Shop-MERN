@@ -144,12 +144,13 @@ export const getUserDetails = id => async (dispatch, getState) => {
 			payload: data,
 		});
 	} catch (err) {
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
 		dispatch({
 			type: USER_DETAILS_FAIL,
-			payload:
-				err.response && err.response.data.message
-					? err.response.data.message
-					: err.message,
+			payload: message
 		});
 	}
 };
@@ -185,12 +186,13 @@ export const updateUserProfile = user => async (dispatch, getState) => {
 
 		
 	} catch (err) {
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
 		dispatch({
 			type: USER_UPDATE_PROFILE_FAIL,
-			payload:
-				err.response && err.response.data.message
-					? err.response.data.message
-					: err.message,
+			payload: message
 		});
 	}
 };
@@ -218,12 +220,13 @@ export const listUsers = () => async (dispatch, getState) => {
 		});
 		
 	} catch (err) {
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
 		dispatch({
 			type: USER_LIST_FAIL,
-			payload:
-				err.response && err.response.data.message
-					? err.response.data.message
-					: err.message,
+			payload: message
 		});
 	}
 };
@@ -251,13 +254,14 @@ export const deleteUser = (id) => async(dispatch, getState) => {
 		});
 	}
 	catch (err) {
-	dispatch({
-		type: USER_DELETE_FAIL,
-		payload:
-			err.response && err.response.data.message
-				? err.response.data.message
-				: err.message,
-	});
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
+		dispatch({
+			type: USER_DELETE_FAIL,
+			payload: message
+		});
 }
 
 };
@@ -291,13 +295,14 @@ export const updateUser = (user) => async(dispatch, getState) => {
 		})
 	}
 	catch (err) {
-	dispatch({
-		type: USER_UPDATE_FAIL,
-		payload:
-			err.response && err.response.data.message
-				? err.response.data.message
-				: err.message,
-	});
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
+		dispatch({
+			type: USER_UPDATE_FAIL,
+			payload: message
+		});
 }
 
 };

@@ -22,6 +22,7 @@ import {
 	PRODUCT_TOP_SUCCESS,
 	PRODUCT_TOP_FAIL,
 } from "../constants/productConstants.js";
+import { logout } from './userActions'
 import axios from "axios";
 
 export const listProducts = (keyword = '', pageNumber = '') => async dispatch => {
@@ -88,12 +89,13 @@ export const deleteProduct = id => async (dispatch, getState) => {
 			type: PRODUCT_DELETE_SUCCESS,
 		});
 	} catch (err) {
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
 		dispatch({
 			type: PRODUCT_DELETE_FAIL,
-			payload:
-				err.response && err.response.data.message
-					? err.response.data.message
-					: err.message,
+			payload: message
 		});
 	}
 };
@@ -120,12 +122,13 @@ export const createProduct = () => async (dispatch, getState) => {
             payload: data
 		});
 	} catch (err) {
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
 		dispatch({
 			type: PRODUCT_CREATE_FAIL,
-			payload:
-				err.response && err.response.data.message
-					? err.response.data.message
-					: err.message,
+			payload: message
 		});
 	}
 };
@@ -154,13 +157,14 @@ export const updateProduct = (product) => async(dispatch, getState) => {
 		});
 	}
 	catch (err) {
-	dispatch({
-		type: PRODUCT_UPDATE_FAIL,
-		payload:
-			err.response && err.response.data.message
-				? err.response.data.message
-				: err.message,
-	});
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
+		dispatch({
+			type: PRODUCT_UPDATE_FAIL,
+			payload: message
+		});
 }
 
 };
@@ -188,13 +192,14 @@ export const createProductReview = (productId, review) => async(dispatch, getSta
 		});
 	}
 	catch (err) {
-	dispatch({
-		type: PRODUCT_CREATE_REVIEW_FAIL,
-		payload:
-			err.response && err.response.data.message
-				? err.response.data.message
-				: err.message,
-	});
+		const message = err.response && err.response.data.message ? err.response.data.message : err.message
+		if(message === 'Not authorized, token failed'){
+			dispatch(logout())
+		}
+		dispatch({
+			type: PRODUCT_CREATE_REVIEW_FAIL,
+			payload: message
+		});
 }
 
 };
