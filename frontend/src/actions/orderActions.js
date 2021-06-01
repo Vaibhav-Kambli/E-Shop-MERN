@@ -22,13 +22,15 @@ import {
 } from "../constants/orderConstants";
 import { logout } from "./userActions";
 
-export const createOrder = order => async (dispatch, getState) => {
+export const createOrder = (order) => async (dispatch, getState) => {
 	try {
 		dispatch({
 			type: ORDER_CREATE_REQUEST,
 		});
 
-		const { userLogin: { userInfo } } = getState();
+		const {
+			userLogin: { userInfo },
+		} = getState();
 
 		const config = {
 			headers: {
@@ -65,13 +67,15 @@ export const createOrder = order => async (dispatch, getState) => {
 	}
 };
 
-export const getOrderDetails = id => async (dispatch, getState) => {
+export const getOrderDetails = (id) => async (dispatch, getState) => {
 	try {
 		dispatch({
 			type: ORDER_DETAILS_REQUEST,
 		});
 
-		const { userLogin: { userInfo } } = getState();
+		const {
+			userLogin: { userInfo },
+		} = getState();
 
 		const config = {
 			headers: {
@@ -100,56 +104,103 @@ export const getOrderDetails = id => async (dispatch, getState) => {
 	}
 };
 
-export const payOrder = (orderId, paymentResult) => async (
-	dispatch,
-	getState
-) => {
-	try {
-		dispatch({
-			type: ORDER_PAY_REQUEST,
-		});
+export const payOrder =
+	(order, paymentResult) => async (dispatch, getState) => {
+		const { orderId } = order;
 
-		const { userLogin: { userInfo } } = getState();
+		if (paymentResult.method !== "stripe") {
+			try {
+				dispatch({
+					type: ORDER_PAY_REQUEST,
+				});
 
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${userInfo.token}`,
-			},
-		};
+				const {
+					userLogin: { userInfo },
+				} = getState();
 
-		const { data } = await axios.put(
-			`/api/orders/${orderId}/pay`,
-			paymentResult,
-			config
-		);
+				const config = {
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${userInfo.token}`,
+					},
+				};
 
-		dispatch({
-			type: ORDER_PAY_SUCCESS,
-			payload: data,
-		});
-	} catch (err) {
-		const message =
-			err.response && err.response.data.message
-				? err.response.data.message
-				: err.message;
-		if (message === "Not authorized, token failed") {
-			dispatch(logout());
+				const { data } = await axios.put(
+					`/api/orders/${orderId}/pay`,
+					paymentResult,
+					config
+				);
+
+				dispatch({
+					type: ORDER_PAY_SUCCESS,
+					payload: data,
+				});
+			} catch (err) {
+				const message =
+					err.response && err.response.data.message
+						? err.response.data.message
+						: err.message;
+				if (message === "Not authorized, token failed") {
+					dispatch(logout());
+				}
+				dispatch({
+					type: ORDER_PAY_FAIL,
+					payload: message,
+				});
+			}
+		} else {
+			const { _id } = order;
+			try {
+				dispatch({
+					type: ORDER_PAY_REQUEST,
+				});
+
+				const {
+					userLogin: { userInfo },
+				} = getState();
+
+				const config = {
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${userInfo.token}`,
+					},
+				};
+
+				const { data } = await axios.put(
+					`/api/orders/${_id}/stripepayment`,
+					order,
+					config
+				);
+
+				dispatch({
+					type: ORDER_PAY_SUCCESS,
+					payload: data,
+				});
+			} catch (err) {
+				const message =
+					err.response && err.response.data.message
+						? err.response.data.message
+						: err.message;
+				if (message === "Not authorized, token failed") {
+					dispatch(logout());
+				}
+				dispatch({
+					type: ORDER_PAY_FAIL,
+					payload: message,
+				});
+			}
 		}
-		dispatch({
-			type: ORDER_PAY_FAIL,
-			payload: message,
-		});
-	}
-};
+	};
 
-export const deliverOrder = orderId => async (dispatch, getState) => {
+export const deliverOrder = (orderId) => async (dispatch, getState) => {
 	try {
 		dispatch({
 			type: ORDER_DELIVER_REQUEST,
 		});
 
-		const { userLogin: { userInfo } } = getState();
+		const {
+			userLogin: { userInfo },
+		} = getState();
 
 		const config = {
 			headers: {
@@ -188,7 +239,9 @@ export const listMyOrders = () => async (dispatch, getState) => {
 			type: ORDER_LIST_MY_REQUEST,
 		});
 
-		const { userLogin: { userInfo } } = getState();
+		const {
+			userLogin: { userInfo },
+		} = getState();
 
 		const config = {
 			headers: {
@@ -223,7 +276,9 @@ export const listOrders = () => async (dispatch, getState) => {
 			type: ORDER_LIST_REQUEST,
 		});
 
-		const { userLogin: { userInfo } } = getState();
+		const {
+			userLogin: { userInfo },
+		} = getState();
 
 		const config = {
 			headers: {
