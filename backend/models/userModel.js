@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema(
 			required: true,
 			default: false,
 		},
+		stripeCustomer: {
+			type: String,
+			required: false,
+		},
 	},
 	{
 		timestamps: true,
@@ -28,19 +32,19 @@ const userSchema = mongoose.Schema(
 );
 
 // check if entered password matches the current user's hashed password
-userSchema.methods.matchPassword = async function(enteredPassword){
-	return await bcrypt.compare(enteredPassword, this.password)
-}
+userSchema.methods.matchPassword = async function (enteredPassword) {
+	return await bcrypt.compare(enteredPassword, this.password);
+};
 
 // check if password is modified. Hash password (encrypt password)
-userSchema.pre('save', async function(next){
-	if(!this.isModified('password')){
+userSchema.pre("save", async function (next) {
+	if (!this.isModified("password")) {
 		next();
 	}
 
-	const salt = await bcrypt.genSalt(10)
-	this.password = await bcrypt.hash(this.password,salt)
-})
+	const salt = await bcrypt.genSalt(10);
+	this.password = await bcrypt.hash(this.password, salt);
+});
 
 const User = mongoose.model("User", userSchema);
 
