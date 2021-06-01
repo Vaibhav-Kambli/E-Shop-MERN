@@ -9,6 +9,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 dotenv.config();
 
@@ -22,16 +23,12 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 
-// //middleware
-// app.use((req, res, next) => {
-// 	console.log("Hello, world!");
-// 	next()
-// })
-
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
+// Route for payment
+app.use("/api/payment", paymentRoutes);
 
 app.get("/api/config/paypal", (req, res) =>
 	res.send(process.env.PAYPAL_CLIENT_ID)
@@ -45,9 +42,7 @@ if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/build")));
 
 	app.get("*", (req, res) =>
-		res.sendFile(
-			path.resolve(__dirname, "frontend", "build", "index.html")
-		)
+		res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
 	);
 } else {
 	app.get("/", (req, res) => {
