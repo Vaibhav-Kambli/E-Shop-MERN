@@ -4,11 +4,35 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## [Live Demo](https://e-shop-app-7.herokuapp.com/)
 
+
+## Screenshots
+
+### Homepage
+![eshop](https://user-images.githubusercontent.com/51274039/120529684-bb599900-c3aa-11eb-957a-ba90f520e19a.PNG)
+
+### Product Page
+![eshop1](https://user-images.githubusercontent.com/51274039/120529858-e04e0c00-c3aa-11eb-84e8-e2061be26200.PNG)
+
+### Sign in / Register
+![eshop-signin-register](https://user-images.githubusercontent.com/51274039/120530118-2905c500-c3ab-11eb-87d7-0366c26239a8.PNG)
+
+### User Profile
+![eshop-profile](https://user-images.githubusercontent.com/51274039/120530312-5fdbdb00-c3ab-11eb-8fef-c1dcbbbf281a.PNG)
+
+### Shipping Details
+![eshop-shippingaddress](https://user-images.githubusercontent.com/51274039/120530577-adf0de80-c3ab-11eb-8272-c46f8ef0a5f6.PNG)
+
+### Order Review Page
+![eshop-order-review](https://user-images.githubusercontent.com/51274039/120530666-cbbe4380-c3ab-11eb-8207-6156d2a800ee.PNG)
+
+### Payment Screen
+![eshop-payment](https://user-images.githubusercontent.com/51274039/120530857-f4463d80-c3ab-11eb-9760-2898025aa1c9.PNG)
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
